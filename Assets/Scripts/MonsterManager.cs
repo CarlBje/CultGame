@@ -12,9 +12,11 @@ public class MonsterManager : MonoBehaviour
         {
             if (recipe.Matches(zoneIngredients))
             {
+                Debug.Log("Recipe matched for monster: " + recipe.monsterPrefab.name);
                 return recipe.monsterPrefab;
             }
         }
+        Debug.Log("No matching recipe found.");
         return null;
     }
 }

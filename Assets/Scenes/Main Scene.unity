@@ -369,6 +369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ingredients: []
+  monsterController: {fileID: 0}
 --- !u!1 &354183785
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,6 +631,22 @@ MonoBehaviour:
       ingredientNames:
       - Ingredient B
     monsterPrefab: {fileID: 5021596057062656515, guid: f67148bc7de13a645b1fe04836d25c93, type: 3}
+  - zoneIngredients:
+    - zone: {fileID: 1109263536}
+      ingredientNames:
+      - Ingredient A
+    - zone: {fileID: 295500745}
+      ingredientNames:
+      - Ingredient C
+    monsterPrefab: {fileID: 5021596057062656515, guid: 0c9da22331882224da4f16c04c96e79b, type: 3}
+  - zoneIngredients:
+    - zone: {fileID: 1109263536}
+      ingredientNames:
+      - Ingredient B
+    - zone: {fileID: 295500745}
+      ingredientNames:
+      - Ingredient A
+    monsterPrefab: {fileID: 5021596057062656515, guid: 4ebc81fa201f6ea4ba5971f9cc667618, type: 3}
 --- !u!4 &645208700
 Transform:
   m_ObjectHideFlags: 0
@@ -1064,6 +1081,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ingredients: []
+  monsterController: {fileID: 0}
 --- !u!1 &1181044683
 GameObject:
   m_ObjectHideFlags: 0

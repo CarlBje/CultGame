@@ -10,6 +10,8 @@ public class MonsterController : MonoBehaviour
 
     public void CreateMonster()
     {
+        Debug.Log("Monster Controller is attempting to create a monster.");
+
         var zoneIngredients = new Dictionary<DropZoneUI, List<GameObject>>
         {
             { dropZone1, new List<GameObject>(dropZone1.ingredients)},
@@ -19,7 +21,12 @@ public class MonsterController : MonoBehaviour
         GameObject monsterPrefab = monsterManager.GetMonster(zoneIngredients);
         if (monsterPrefab != null)
         {
+            Debug.Log("Monster prefab found: " + monsterPrefab.name);
             Instantiate(monsterPrefab, new Vector3(0,0,0), Quaternion.identity);
+        }
+        else
+        {
+            Debug.Log("No matching monster found.");
         }
     }
 }
