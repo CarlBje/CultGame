@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class WaypointGizmos : MonoBehaviour
+public class Waypoints : MonoBehaviour
 {
     public float waypointRadius = 0.3f;
 
