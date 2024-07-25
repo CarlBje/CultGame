@@ -23,10 +23,17 @@ public class MonsterController : MonoBehaviour
         {
             Debug.Log("Monster prefab found: " + monsterPrefab.name);
             Instantiate(monsterPrefab, new Vector3(0,0,0), Quaternion.identity);
+            ConsumeIngredients();
         }
         else
         {
             Debug.Log("No matching monster found.");
         }
+    }
+
+    public void ConsumeIngredients()
+    {
+        dropZone1.ClearIngredients();
+        dropZone2.ClearIngredients();
     }
 }

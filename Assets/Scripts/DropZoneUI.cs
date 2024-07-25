@@ -42,4 +42,14 @@ public class DropZoneUI : MonoBehaviour
             Debug.Log("Ingredient removed from drop zone: " + ingredient.name);
         }
     }
+
+    public void ClearIngredients()
+    {
+        foreach (var ingredient in ingredients)
+        {
+            Destroy(ingredient);
+        }
+        ingredients.Clear();
+        Debug.Log("All ingredients cleared from drop zone.");
+    }
 }
