@@ -47,3 +47,9 @@ TagManager:
   - name: Entities
     uniqueID: 408379823
     locked: 0
+  - name: prop
+    uniqueID: 2105817101
+    locked: 0
+  - name: wall
+    uniqueID: 1097798963
+    locked: 0
