@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaypointFollow : MonoBehaviour
+public class EnemyMovement : MonoBehaviour
 {
     public Transform waypointParent;
     public float speed = 2.0f;
@@ -11,7 +11,7 @@ public class WaypointFollow : MonoBehaviour
     public float detectionAngle = 45.0f; // Angle within which to detect objects in front
 
     private Transform[] waypoints;
-    private int currentWaypointIndex = 0;
+    private int currentWaypointIndex;
     private bool move = true;
 
     void Start()
@@ -25,6 +25,8 @@ public class WaypointFollow : MonoBehaviour
             {
                 waypoints[i] = waypointParent.GetChild(i);
             }
+            // Set the currentWaypointIndex to the last waypoint
+            currentWaypointIndex = waypoints.Length - 1;
         }
     }
 
@@ -32,13 +34,13 @@ public class WaypointFollow : MonoBehaviour
     {
         if (waypoints == null || waypoints.Length == 0) return;
 
-        // Check for "Enemy" objects within the detection radius and in front
+
         bool enemyNearby = false;
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius);
 
         foreach (Collider2D collider in hitColliders)
         {
-            if (collider.CompareTag("Enemy") && IsObjectInFront(collider.transform))
+            if (collider.CompareTag("Monster") && IsObjectInFront(collider.transform))
             {
                 enemyNearby = true;
                 break;
@@ -63,9 +65,9 @@ public class WaypointFollow : MonoBehaviour
 
         if (Vector2.Distance(transform.position, targetWaypoint.position) < reachThreshold)
         {
-            if (currentWaypointIndex < waypoints.Length - 1)
+            if (currentWaypointIndex > 0)
             {
-                currentWaypointIndex++;
+                currentWaypointIndex--;
             }
             else
             {
