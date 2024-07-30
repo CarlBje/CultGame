@@ -16,14 +16,14 @@ public class IngredientUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
 
-        // if (canvas == null)
-        // {
-        //     Debug.LogError("IngredientUI must be a child of a Canvas.");
-        // }
-        // else
-        // {
-        //     Debug.Log("Canvas found: " + canvas.name);
-        // }
+        if (canvas == null)
+        {
+            Debug.LogError("IngredientUI must be a child of a Canvas.");
+        }
+        else
+        {
+            Debug.Log("Canvas found: " + canvas.name);
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -53,30 +53,36 @@ public class IngredientUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         dropSound.Play();
     }
 
-    private bool IsInDropZone(PointerEventData eventData)
+private bool IsInDropZone(PointerEventData eventData)
+{
+    DropZoneUI[] dropZones = FindObjectsOfType<DropZoneUI>();
+    Vector2 localMousePosition;
+    RectTransform canvasRectTransform = canvas.transform as RectTransform;
+
+    foreach (DropZoneUI zone in dropZones)
     {
-        DropZoneUI[] dropZones = FindObjectsOfType<DropZoneUI>();
-        Vector2 localMousePosition;
-        RectTransform canvasRectTransform = canvas.transform as RectTransform;
+        RectTransform dropZoneRectTransform = zone.GetComponent<RectTransform>();
 
-        foreach (DropZoneUI zone in dropZones)
+        // Converting screen point to the local point within the drop zone's RectTransform
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(dropZoneRectTransform, Input.mousePosition, canvas.worldCamera, out localMousePosition))
         {
-            RectTransform dropZoneRectTransform = zone.GetComponent<RectTransform>();
+            Debug.Log($"Checking drop zone: {zone.name}");
+            Debug.Log($"Local Mouse Position in Drop Zone: {localMousePosition}");
 
-            // Converting screen point to the local point within the drop zone's RectTransform
-            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, canvas.worldCamera, out localMousePosition))
+            // Logging the bounds of the drop zone
+            Vector3[] corners = new Vector3[4];
+            dropZoneRectTransform.GetWorldCorners(corners);
+            Debug.Log($"Drop Zone Corners: {corners[0]}, {corners[1]}, {corners[2]}, {corners[3]}");
+
+            if (RectTransformUtility.RectangleContainsScreenPoint(dropZoneRectTransform, Input.mousePosition, canvas.worldCamera))
             {
-                // Debug.Log($"Checking drop zone: {zone.name}");
-                // Debug.Log($"Local Mouse Position in Drop Zone: {localMousePosition}");
-                if (RectTransformUtility.RectangleContainsScreenPoint(zone.GetComponent<RectTransform>(), Input.mousePosition, canvas.worldCamera))
-                {
-                    Debug.Log($"Ingredient dropped in drop zone: {zone.name}");
-                    zone.AddIngredient(gameObject);
-                    return true;
-                }
+                Debug.Log($"Ingredient dropped in drop zone: {zone.name}");
+                zone.AddIngredient(gameObject);
+                return true;
             }
         }
-        Debug.Log("Ingredient not in any drop zone.");
-        return false;
     }
+    Debug.Log("Ingredient not in any drop zone.");
+    return false;
+}
 }
