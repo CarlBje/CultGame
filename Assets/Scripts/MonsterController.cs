@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MonsterController : MonoBehaviour
 {
     public DropZoneUI dropZone1;
     public DropZoneUI dropZone2;
+    public Transform summonPosition;
     public MonsterManager monsterManager;
+    public MonsterControllerAudio audioController;
 
     public void CreateMonster()
     {
@@ -22,7 +25,9 @@ public class MonsterController : MonoBehaviour
         if (monsterPrefab != null)
         {
             Debug.Log("Monster prefab found: " + monsterPrefab.name);
-            Instantiate(monsterPrefab, new Vector3(0,0,0), Quaternion.identity);
+            audioController.PlaySuccessSound();
+            Vector3 correctPosition = new Vector3(summonPosition.position.x, summonPosition.position.y, 0.0f);
+            Instantiate(monsterPrefab, correctPosition, Quaternion.identity);
             ConsumeIngredients();
         }
         else

@@ -4,6 +4,8 @@ using UnityEngine.EventSystems;
 public class IngredientUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public Ingredient ingredient;
+    public AudioSource pickUpSound;
+    public AudioSource dropSound;
     private Vector2 startPosition;
     private Transform parentToReturnTo = null;
     private RectTransform rectTransform;
@@ -14,14 +16,14 @@ public class IngredientUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
 
-        if (canvas == null)
-        {
-            Debug.LogError("IngredientUI must be a child of a Canvas.");
-        }
-        else
-        {
-            Debug.Log("Canvas found: " + canvas.name);
-        }
+        // if (canvas == null)
+        // {
+        //     Debug.LogError("IngredientUI must be a child of a Canvas.");
+        // }
+        // else
+        // {
+        //     Debug.Log("Canvas found: " + canvas.name);
+        // }
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -29,6 +31,7 @@ public class IngredientUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         startPosition = rectTransform.localPosition;
         parentToReturnTo = transform.parent;
         transform.SetParent(canvas.transform); // Move to the root of the Canvas to avoid clipping issues
+        pickUpSound.Play();
 
         if (parentToReturnTo.TryGetComponent<DropZoneUI>(out var dropZone))
         {
@@ -47,6 +50,7 @@ public class IngredientUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         {
             transform.SetParent(canvas.transform);
         }
+        dropSound.Play();
     }
 
     private bool IsInDropZone(PointerEventData eventData)
