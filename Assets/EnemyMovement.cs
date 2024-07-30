@@ -16,45 +16,42 @@ public class EnemyMovement : MonoBehaviour
 
     void Start()
     {
-        // Get all child waypoints from the waypoint parent
-        if (waypointParent != null)
-        {
-            int childCount = waypointParent.childCount;
-            waypoints = new Transform[childCount];
-            for (int i = 0; i < childCount; i++)
-            {
-                waypoints[i] = waypointParent.GetChild(i);
-            }
-            // Set the currentWaypointIndex to the last waypoint
-            currentWaypointIndex = waypoints.Length - 1;
-        }
+        // Initialization can be done here if needed
     }
 
     void Update()
     {
-        if (waypoints == null || waypoints.Length == 0) return;
-
+        if (waypoints == null || waypoints.Length == 0)
+        {
+            if (waypointParent != null)
+            {
+                InitializeWaypoints();
+            }
+            else
+            {
+                return;
+            }
+        }
 
         bool enemyNearby = false;
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius);
 
         foreach (Collider2D collider in hitColliders)
         {
-            if (collider.CompareTag("Monster") && IsObjectInFront(collider.transform))
+            if (collider.gameObject == this.gameObject)
+            {
+                // Ignore self
+                continue;
+            }
+
+            if ((collider.CompareTag("Monster") || collider.CompareTag("Enemy")) && IsObjectInFront(collider.transform))
             {
                 enemyNearby = true;
                 break;
             }
         }
 
-        if (enemyNearby)
-        {
-            move = false;
-        }
-        else
-        {
-            move = true;
-        }
+        move = !enemyNearby;
 
         if (!move) return;
 
@@ -76,7 +73,20 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    // Check if a given object is within the detection angle in front of the current object
+    private void InitializeWaypoints()
+    {
+        if (waypointParent != null)
+        {
+            int childCount = waypointParent.childCount;
+            waypoints = new Transform[childCount];
+            for (int i = 0; i < childCount; i++)
+            {
+                waypoints[i] = waypointParent.GetChild(i);
+            }
+            currentWaypointIndex = waypoints.Length - 1;
+        }
+    }
+
     private bool IsObjectInFront(Transform obj)
     {
         Vector2 directionToObj = obj.position - transform.position;
@@ -87,7 +97,6 @@ public class EnemyMovement : MonoBehaviour
         return angle < detectionAngle / 2.0f && directionToObj.magnitude < detectionRadius;
     }
 
-    // Draw the detection radius and angle in the Scene view using Gizmos
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -125,5 +134,11 @@ public class EnemyMovement : MonoBehaviour
             Gizmos.DrawLine(previousPoint, currentPoint);
             previousPoint = currentPoint;
         }
+    }
+
+    public void SetWaypointParent(Transform parent)
+    {
+        waypointParent = parent;
+        InitializeWaypoints();
     }
 }

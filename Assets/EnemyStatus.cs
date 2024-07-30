@@ -17,7 +17,7 @@ public class EnemyStatus : MonoBehaviour
     public int attackPower = 10;
     public int defense = 5;
 
-    private void Start()
+    private void Awake()
     {
         //pick 2 random but different attributes
         int randomAttribute1 = Random.Range(1, 4);
