@@ -14,9 +14,14 @@ public class EnemyMovement : MonoBehaviour
     private int currentWaypointIndex;
     private bool move = true;
 
-    void Start()
+    public Sprite[] sprites;
+
+    void Awake()
     {
-        // Initialization can be done here if needed
+        //Pick a random sprite
+        GetComponent<SpriteRenderer>().sprite = sprites[Random.Range(0, sprites.Length)];
+        //set sprite size to 0.25
+        transform.localScale = new Vector3(0.25f, 0.25f, 1);
     }
 
     void Update()

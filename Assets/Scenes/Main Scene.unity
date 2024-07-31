@@ -337,7 +337,7 @@ Transform:
   m_GameObject: {fileID: 590000524}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.66, y: 0.07, z: 0}
+  m_LocalPosition: {x: 3.34, y: -3.31, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7978,23 +7978,26 @@ MonoBehaviour:
     - zone: {fileID: 295500745}
       ingredientNames:
       - Ingredient B(Clone)
-    monsterPrefab: {fileID: 5021596057062656515, guid: f67148bc7de13a645b1fe04836d25c93, type: 3}
+    monsterPrefab: {fileID: 1696258604223892574, guid: 9babd46b4a6fc1f4daa82409f52ad090, type: 3}
   - zoneIngredients:
     - zone: {fileID: 1109263536}
       ingredientNames:
-      - Ingredient A
+      - Ingredient A(Clone)
+    - zone: {fileID: 295500745}
+      ingredientNames:
+      - Ingredient C(Clone)
     - zone: {fileID: 295500745}
       ingredientNames:
       - Ingredient C
-    monsterPrefab: {fileID: 5021596057062656515, guid: 0c9da22331882224da4f16c04c96e79b, type: 3}
+    monsterPrefab: {fileID: 1696258604223892574, guid: 61afadaebc648a74d98c63da77bb5d82, type: 3}
   - zoneIngredients:
     - zone: {fileID: 1109263536}
       ingredientNames:
-      - Ingredient B
+      - Ingredient B(Clone)
     - zone: {fileID: 295500745}
       ingredientNames:
-      - Ingredient A
-    monsterPrefab: {fileID: 5021596057062656515, guid: 4ebc81fa201f6ea4ba5971f9cc667618, type: 3}
+      - Ingredient C(Clone)
+    monsterPrefab: {fileID: 1696258604223892574, guid: c5a6ebf0473a03147882651215e52043, type: 3}
 --- !u!4 &645208700
 Transform:
   m_ObjectHideFlags: 0

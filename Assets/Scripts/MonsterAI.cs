@@ -8,16 +8,36 @@ public class MonsterAI : MonoBehaviour
     public int defense = 5;
     public bool isFighting = false;
     public Attributes attributes;
+    public Attributes att1;
+    public Attributes att2;
 
     private void Start()
     {
-        int randomAttribute1 = Random.Range(1, 4);
-        int randomAttribute2 = Random.Range(1, 4);
-        while (randomAttribute1 == randomAttribute2)
+        if (this.name == "MonsterAB")
         {
-            randomAttribute2 = Random.Range(1, 4);
+            att1 = Attributes.A;
+            att2 = Attributes.B;
         }
-        attributes = (Attributes)(1 << randomAttribute1 | 1 << randomAttribute2);
+        else if (this.name == "MonsterAC")
+        {
+            att1 = Attributes.A;
+            att2 = Attributes.C;
+        }
+        else if (this.name == "MonsterBC")
+        {
+            att1 = Attributes.B;
+            att2 = Attributes.C;
+        }
+        else
+        {
+            Debug.LogWarning("Unknown monster type: " + this.name);
+            att1 = Attributes.None;
+            att2 = Attributes.None;
+        }
+
+        attributes = att1 | att2;
+
+        Debug.Log("Monster " + gameObject.name + " has attributes: " + attributes);
 
     }
 
@@ -103,6 +123,15 @@ public class MonsterAI : MonoBehaviour
             value >>= 1;
         }
         return count;
+    }
+
+    //Display the attributes of the monster above its head in the game view
+    void OnGUI()
+    {
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+        GUIStyle style = new GUIStyle(GUI.skin.label);
+        style.fontSize = 20; // Set the font size to 20
+        GUI.Label(new Rect(screenPos.x, Screen.height - screenPos.y - 100, 100, 100), attributes.ToString(), style);
     }
 
     

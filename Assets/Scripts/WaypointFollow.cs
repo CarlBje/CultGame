@@ -14,8 +14,13 @@ public class WaypointFollow : MonoBehaviour
     private int currentWaypointIndex = 0;
     private bool move = true;
 
-    void Start()
+    public Sprite[] sprites;
+
+
+    void Awake()
     {
+        //Get waypoint parent called "Waypoints"
+        waypointParent = GameObject.Find("Waypoints").transform;
         // Get all child waypoints from the waypoint parent
         if (waypointParent != null)
         {
@@ -26,6 +31,12 @@ public class WaypointFollow : MonoBehaviour
                 waypoints[i] = waypointParent.GetChild(i);
             }
         }
+
+        GetComponent<SpriteRenderer>().sprite = sprites[0];
+        //set sprite size to 0.5
+        transform.localScale = new Vector3(0.25f, 0.25f, 1);
+
+
     }
 
     void Update()

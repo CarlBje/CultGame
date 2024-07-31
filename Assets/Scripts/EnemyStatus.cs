@@ -80,5 +80,13 @@ public class EnemyStatus : MonoBehaviour
         return count;
     }
 
-    
+    void OnGUI()
+    {
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+        GUIStyle style = new GUIStyle(GUI.skin.label);
+        style.fontSize = 20; // Set the font size to 20
+        GUI.Label(new Rect(screenPos.x, Screen.height - screenPos.y - 100, 100, 100), attributes.ToString(), style);
+    }
+
+
 }
