@@ -62,7 +62,8 @@ MonoBehaviour:
   ingredient:
     ingredientName: Ingredient C
     ingredientSprite: {fileID: -2413806693520163455, guid: e989a438d27e1864185eb86cdf962ac1, type: 3}
-  audioController: {fileID: 6560032198702426635, guid: d83ead2f62169ec42bbc9b3f3260968d, type: 3}
+  pickUpSound: {fileID: 0}
+  dropSound: {fileID: 0}
 --- !u!1 &2428455624837085612
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,16 +122,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8113208, g: 0.53730863, b: 0.53730863, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2413806693520163455, guid: e989a438d27e1864185eb86cdf962ac1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5ff2aa2110801374a9e1372c6bf21ae5, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1

@@ -15,7 +15,7 @@ public class IngredientUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     {
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
-
+        
         if (canvas == null)
         {
             Debug.LogError("IngredientUI must be a child of a Canvas.");
@@ -48,7 +48,8 @@ public class IngredientUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     {
         if (!IsInDropZone(eventData))
         {
-            transform.SetParent(canvas.transform);
+            transform.SetParent(parentToReturnTo);
+            rectTransform.localPosition = startPosition;
         }
         dropSound.Play();
     }
